@@ -14,8 +14,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     private List<Model_Item> list;
 
-    public MyAdapter(List<Model_Item> list) {
+    public Context getmContext() {
+        return mContext;
+    }
+
+    private Context mContext;
+    public MyAdapter(List<Model_Item> list, Context context) {
         this.list = list;
+        //your code.
+        this.mContext = context;
     }
 
     @NonNull
@@ -54,5 +61,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             title2 = itemView.findViewById(R.id.TextView03);
             des2 = itemView.findViewById(R.id.TextView04);
         }
+    }
+
+    public void removeItem(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(Model_Item item, int position) {
+        list.add(position, item);
+        notifyItemInserted(position);
+    }
+
+    public List<Model_Item> getData() {
+        return list;
     }
 }
